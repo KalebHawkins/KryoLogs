@@ -1,0 +1,94 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'KryoLogs'
+theme = "LoveIt"
+languageName = "English"
+
+# enableGitInfo = true
+enableEmoji = true
+
+[author]
+  name = "Kaleb Hawkins"
+  email = "KalebHawkins@outlook.com"
+  link = "https://github.com/KalebHawkins"
+
+[menu]
+  [[menu.main]]
+    weight = 1
+    identifier = "posts"
+    pre = ""
+    post = ""
+    name = "Posts"
+    url = "/posts/"
+    title = " Kryo Posts"
+  [[menu.main]]
+    weight = 2
+    identifier = "tags"
+    pre = ""
+    post = ""
+    name = "Tags"
+    url = "/tags/"
+    title = ""
+  [[menu.main]]
+    weight = 3
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "Categories"
+    url = "/categories/"
+    title = ""
+[markup]
+  [markup.highlight]
+    # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
+    noClasses = false
+
+[params]
+  # site default theme ["auto", "light", "dark"]
+  defaultTheme = "dark"
+  # gitRepo = "https://github.com/KalebHawkins/KryoLogs"
+  dateFormat = "2006-01-02"
+  title = "CHAOS"
+  [params.header]
+    # desktop header mode ["fixed", "normal", "auto"]
+    desktopMode = "fixed"
+    # mobile header mode ["fixed", "normal", "auto"]
+    mobileMode = "auto"
+  [params.header.title]
+      # URL of the LOGO
+      logo = "KryoLogs"
+      # title name
+      name = ""
+  [params.app]
+    # optional site title override for the app when added to an iOS home screen or Android launcher
+    title = "A place of entropy."
+    # whether to omit favicon resource links
+    noFavicon = false
+    # modern SVG favicon to use in place of older style .png and .ico files
+    svgFavicon = ""
+    # Android browser theme color
+    themeColor = "#ffffff"
+    # Safari mask icon color
+    iconColor = "#5bbad5"
+    # Windows v8-10 tile color
+    tileColor = "#da532c"
+  # Home page config
+  [params.home]
+    [params.home.profile]
+      enable = true
+      # subtitle shown in home page (HTML format is supported)
+      subtitle = "A place of entropy."
+      # whether to use typeit animation for subtitle
+      typeit = true
+      # whether to show social links
+      social = true
+    # Home page posts
+    [params.home.posts]
+      enable = true
+      # special amount of posts in each home posts page
+      paginate = 10
+# Social config about the author
+  [params.social]
+    GitHub = "KalebHawkins"
+    FreeCodeCamp = "fcc5998d3fe-68e4-406a-a3ac-5b22dd5224cc"
+    Discord = "533791538308841522"
+    Email = "KalebHawkins@outlook.com"
