@@ -1,4 +1,4 @@
-baseURL = '/'
+baseURL = 'https://kalebhawkins.github.io/KryoLogs'
 languageCode = 'en-us'
 title = 'KryoLogs'
 theme = "LoveIt"
