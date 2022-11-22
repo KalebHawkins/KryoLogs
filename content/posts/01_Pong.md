@@ -216,7 +216,7 @@ paddleOpt.GeoM.Translate(-float64(g.paddle.img.Bounds().Dx()/2), -float64(g.padd
 
 ## Player Movement
 
-Alright, time for our player movement. I am going to create a couple of functions. One function handles the "high level" game logic the other implements the details of that logic. This will work similarly to the `DrawPlaying()` method.
+Alright, time for our player movement. I am going to create a couple of functions. One function handles the "high-level" game logic the other implements the details of that logic. This will work similarly to the `DrawPlaying()` method.
 
 ```go
 func (g *Game) UpdatePlaying() {
@@ -492,7 +492,7 @@ func (g *Game) checkBallCollision() {
 
 ## Scoreboard
 
-Gameplay complete, sort of, we need polish. We need a scoreboard. 
+The gameplay is complete, sort of, we need polish. We need a scoreboard. 
 
 To do that we are going to need text and when we need text we will need a font file and some initialization code. The font file, `Bodo Amat.tff`, I found it online for free. Thank you, font creators! 
 
@@ -662,7 +662,7 @@ func (g *Game) UpdatePlaying() {
 
 ## Audio 
 
-It feels kind of bland, even for a pong clone. It just seems quiet. Let's add some sound. Three things should cause a sound. A ball hitting a paddle, a win, and a loss. 
+It feels kind of bland, even for a pong clone. It just seems quiet. Let's add some sound. Three things should cause a sound. A ball hitting a paddle, a win, and a loss.
 
 ```go
 // ...
@@ -715,7 +715,7 @@ The `WAV` files I found online with free-to-use licenses. Thank you, sound creat
 
 In the example above I embed the sound files into byte slices. I create an iota enumerated `Stream` type. This is to determine which sound to play and when. 
 
-In the game struct, we add an audio context, player and a slice of byte slices. The `audioStream` is to hold our sound files byte data.
+In the game struct, we add an audio context, a player and a slice of byte slices. The `audioStream` is to hold our sound files byte data.
 
 Bringing all that together. We create a function to play audio for us.
 
