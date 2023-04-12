@@ -24,12 +24,12 @@ enableEmoji = true
   [[menu.main]]
     pageRef="posts"
     name = 'Posts'
-    url = '/posts/'
+    url = '/KryoLogs/posts/'
     weight = 20
   [[menu.main]]
     pageRef="about"
     name = 'About'
-    url = '/about/'
+    url = '//KryoLogs/about/'
     weight = 30
 
 [params]
