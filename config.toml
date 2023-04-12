@@ -29,7 +29,7 @@ enableEmoji = true
   [[menu.main]]
     pageRef="about"
     name = 'About'
-    url = '//KryoLogs/about/'
+    url = '/KryoLogs/about/'
     weight = 30
 
 [params]
