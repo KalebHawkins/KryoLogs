@@ -1,5 +1,5 @@
 ---
-title: RedHat - HAProxy & Keepalived
+title: Red Hat - HAProxy & Keepalived
 date: 2023-02-10
 author: Kaleb Hawkins
 description: Setup HAProxy and KeepAlived
