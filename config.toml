@@ -19,17 +19,17 @@ enableEmoji = true
     # When pageRef is set, setting `url` is optional; it will be used as a fallback if the page is not found.
     pageRef="/"
     name = 'Home'
-    url = '/Kryologs'
+    url = 'https://kalebhawkins.github.io/KryoLogs/'
     weight = 10
   [[menu.main]]
     pageRef="posts"
     name = 'Posts'
-    url = '/KryoLogs/posts/'
+    url = 'https://kalebhawkins.github.io/KryoLogs/posts/'
     weight = 20
   [[menu.main]]
     pageRef="about"
     name = 'About'
-    url = '/KryoLogs/about/'
+    url = 'https://kalebhawkins.github.io/KryoLogs/about/'
     weight = 30
 
 [params]
