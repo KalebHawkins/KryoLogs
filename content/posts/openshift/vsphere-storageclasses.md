@@ -53,7 +53,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: vsphere-default
+  storageClassName: <storageclass-name>
   volumeMode: Filesystem
 ```
 
