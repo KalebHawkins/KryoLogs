@@ -15,7 +15,7 @@
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>resources</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>requests</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>1Gi</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=l>vsphere-default</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=l>&lt;storageclass-name&gt;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>volumeMode</span><span class=p>:</span><span class=w> </span><span class=l>Filesystem</span><span class=w>
 </span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl apply -f new-pvc.yaml
 </span></span></code></pre></div><h2 id=specify-datastores-at-the-storageclass-level>Specify Datastores at the StorageClass Level</h2><p>You will need to create a CRD to create the storageclass and apply it to the cluster. The CRD is just a yaml file.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># filename: sc-custom-ds.yaml</span><span class=w>
