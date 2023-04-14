@@ -1,5 +1,5 @@
 ---
-title: Minikube
+title: Kubernetes - Minikube
 date: 2023-02-10
 author: Kaleb Hawkins
 description: A quick start mini guide to Minikube

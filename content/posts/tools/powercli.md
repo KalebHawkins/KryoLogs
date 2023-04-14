@@ -1,5 +1,5 @@
 ---
-title: Vmware PowerCLI
+title: VMWare & Powershell - PowerCLI
 date: 2023-02-10
 author: Kaleb Hawkins
 description: Setup guide for VMWare's PowerCLI

@@ -1,5 +1,5 @@
 ---
-title: Install Docker CE (Ubuntu 20.04)
+title: Ubuntu 20.04 - Install Docker CE
 date: 2023-02-10
 author: Kaleb Hawkins
 description: Install Docker CE on Ubuntu 20.04

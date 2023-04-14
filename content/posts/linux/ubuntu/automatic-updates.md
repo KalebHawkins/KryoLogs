@@ -1,5 +1,5 @@
 ---
-title: Enable Automatic Updates Ubuntu 20.04
+title: Ubuntu 20.04 - Enable Automatic Updates 
 date: 2023-02-10
 author: Kaleb Hawkins
 description: Setup automatic updates for Ubuntu 20.04
