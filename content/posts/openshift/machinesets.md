@@ -137,14 +137,7 @@ etcdctl endpoint health -w table
 
 Now that we have our new master node in place it is time to remove the old one.
 
-First we must annotate the machine we want to remove. Then scale down the machineset.
-
-```bash
-oc annotate machine/<machine-name> -n openshift-machine-api machine.openshift.io/cluster-api-delete-machine="true"
-oc scale --replicas=1 machineset <machineset> -n openshift-machine-api
-```
-
-Now, even though the machine has been removed etcd does not update it's member list. We must remove it manually. To do that we need to get back into one of the etcd pods.
+We must remove the etcd peer manually. To do that we need to get back into one of the etcd pods.
 
 ```bash
 oc -n openshift-etcd get pods -l k8s-app=etcd
@@ -153,10 +146,17 @@ oc rsh -n openshift-etcd <pod-name>
 etcdctl member list -w table
 ```
 
-In the member list you will get the `ID` of the server removed and perform the following command. 
+In the member list you will get the `ID` of the server you want to remove and perform the following command. 
 
 ```bash
 etcdctl member remove <ID>
+```
+
+Now, we can annotate the machine we want to remove. This will tell the machine api which node to delete when scaling down. Finally, we scale down the machineset.
+
+```bash
+oc annotate machine/<machine-name> -n openshift-machine-api machine.openshift.io/cluster-api-delete-machine="true"
+oc scale --replicas=1 machineset <machineset> -n openshift-machine-api
 ```
 
 You will repeat the steps above for each master node machineset that you need to modify. 
