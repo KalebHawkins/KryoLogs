@@ -47,3 +47,9 @@ enableEmoji = true
 [[params.socialIcons]]
 name = "github"
 url = "https://github.com/KalebHawkins"
+[[params.socialIcons]]
+name = "tiktok"
+url = "https://www.tiktok.com/@kryotek"
+[[params.socialIcons]]
+name = "email"
+url = "mailto:KalebHawkins@outlook.com"
