@@ -1,6 +1,6 @@
 ---
 title: Day 1 - Day Trading
-date: 2023-08-08
+date: 2023-08-09
 author: Kaleb Hawkins
 description: My journey into day trading
 tags:
