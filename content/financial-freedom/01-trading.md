@@ -38,7 +38,7 @@ Trading books:
 
 * [The TAO of Trading (Amazon)](https://amzn.to/3YstIjT)
 * [How to Day Trade for a Living (Amazon)](https://amzn.to/45kiwYZ)
-* [How to Swing Trade](https://amzn.to/3QDn8Fk)
+* [How to Swing Trade (Amazon)](https://amzn.to/3QDn8Fk)
 
 Referral Links:
 

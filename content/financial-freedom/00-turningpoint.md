@@ -44,9 +44,9 @@ Below are some of the books I have purchased and read cover to cover.
 * [Rich Dad Poor Dad (Amazon)](https://amzn.to/44Y4tst)
 * [The TAO of Trading (Amazon)](https://amzn.to/3YstIjT)
 * [How to Day Trade for a Living (Amazon)](https://amzn.to/45kiwYZ)
-* [How to Swing Trade](https://amzn.to/3QDn8Fk)
-* [The 10X Rule](https://amzn.to/43ZlWPY)
-* [Skip the Flip](https://amzn.to/3YpSpgY)
+* [How to Swing Trade (Amazon)](https://amzn.to/3QDn8Fk)
+* [The 10X Rule (Amazon)](https://amzn.to/43ZlWPY)
+* [Skip the Flip (Amazon)](https://amzn.to/3YpSpgY)
 
 I have several other books I haven't made it to yet. The ones listed I have found valuable. 
 
