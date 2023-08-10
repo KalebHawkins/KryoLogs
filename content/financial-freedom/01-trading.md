@@ -30,7 +30,7 @@ I made more of the interest in a month than I had in the entirety of the savings
 
 After a while of trying to analyze things on Robinhood and trade options to maximize profits, I'd miss entries trying to navigate the site or app. I was day trading and scalping sometimes to the minute. Robinhood's tools just didn't allow me enough flexibility for this.
 
-Here comes Youtube's algorithm introducing [Webull](https://a.webull.com/KFgte9M9JAXue0sshX). Webull as it turns out offers 5.0% APY on any uninvested settled cash. There is no subscription required. I signed up, tested the waters and not long afterward moved a majority of my money into Webull. So if you have a savings account giving you anything less than 5.00% APY you may want to do your research. You might be surprised to know the 1.5%, 4.65%, and 5.00% APY is coming from the same banks you have in your savings account collecting 0.01% APY. 
+Here comes Youtube's algorithm introducing [Webull](https://a.webull.com/NcHte9M9JAXue0smdg). Webull as it turns out offers 5.0% APY on any uninvested settled cash. There is no subscription required. I signed up, tested the waters and not long afterward moved a majority of my money into Webull. So if you have a savings account giving you anything less than 5.00% APY you may want to do your research. You might be surprised to know the 1.5%, 4.65%, and 5.00% APY is coming from the same banks you have in your savings account collecting 0.01% APY. 
 
 I use both Webull and Robinhood. I use Robinhood for longer-term investments and Webull for day trading. Webull also acts as my savings account with a very nice 5.00% APY. I use Robinhood's cash account card for my spending money. Robinhood gives you a debit card you can put money on. When you spend money using the cash account card it will round up your purchase to the nearest dollar and deposit that into your Robinhood brokerage. For example, if you spend $3.30 using the cash card it will take $0.70 and put it in your Robinhood brokerage to be invested. Robinhood also offers bonuses on your round-ups so the more you use it the better.
 
@@ -42,5 +42,5 @@ Trading books:
 
 Referral Links:
 
-* [Webull](https://a.webull.com/KFgte9M9JAXue0sshX)
+* [Webull](https://a.webull.com/NcHte9M9JAXue0smdg)
 * [Robinhood](https://join.robinhood.com/kalebh19)
