@@ -5,10 +5,6 @@ date: '2023-08-07'
 author: Kaleb Hawkins
 ---
 
-Welcome to KryoLogs. I should share a little bit about myself. I have a few interests. One of the longest-running interests in my life has been technology. I've been very gifted with technology and have always known I would use it to make my living. 
-
-I wanted to share that information because I think it is important to note this site was originally intended to be a way to share technical documentation and notes with other team members and that I come from a technical background. 
-
 # How this Site is Made
 
 Written in Go, Hugo is an open-source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
