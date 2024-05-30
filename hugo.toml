@@ -1,0 +1,21 @@
+baseURL = 'https://kalebhawkins.github.io/KryoLogs'
+languageCode = 'en-us'
+title = "KryoLogs"
+[params.docs]
+    pathName = "docs"
+    themeColor = "green"
+    darkMode = true
+[params.social]
+    github = "KalebHawkins"
+
+[module]
+    [[module.imports]]
+        path = "github.com/colinwilson/lotusdocs"
+        disable = false
+    [[module.imports]]
+        path = "github.com/gohugoio/hugo-mod-bootstrap-scss/v5"
+        disable = false
+    [module.hugoVersion]
+        extended = true
+
+# Reference https://lotusdocs.dev/docs/reference/configuration/
