@@ -1,0 +1,491 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>Setting Up HAProxy Clusters | KryoLogs</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=keywords content="Documentation,Hugo,Hugo Theme,Bootstrap"><meta name=author content="Colin Wilson - Lotus Labs"><meta name=email content="support@aigis.uk"><meta name=website content="https://lotusdocs.dev"><meta name=Version content="v0.1.0"><link rel=icon href=https://kalebhawkins.github.io/KryoLogs/favicon.ico sizes=any><link rel=icon type=image/svg+xml href=https://kalebhawkins.github.io/KryoLogs/favicon.svg><link rel=apple-touch-icon sizes=180x180 href=https://kalebhawkins.github.io/KryoLogs/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://kalebhawkins.github.io/KryoLogs/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://kalebhawkins.github.io/KryoLogs/favicon-16x16.png><link rel=manifest crossorigin=use-credentials href=https://kalebhawkins.github.io/KryoLogs/site.webmanifest><meta property="og:title" content="Setting Up HAProxy Clusters"><meta property="og:description" content='Install Required Packages linkInstall haproxy and keepalived packages.
+dnf install -y keepalived haproxy Configure Keepalived linkConfigure firewall rules for keepalived VRRP protocol.
+firewall-cmd --add-rich-rule=&#39;rule protocol value="vrrp" accept&#39; --permanent firewall-cmd --reload Configure keepalived.
+vi /etc/keepalived/keepalived.conf global_defs { notification_email { admin@example.com } notification_email_from noreply@example.com smtp_server 127.0.0.1 smtp_connect_timeout 60 } vrrp_script chk_haproxy { script "killall -0 haproxy" # check the haproxy process interval 2 # every 2 seconds weight 2 # add 2 points if OK } vrrp_instance VI_1 { interface eth0 # interface to monitor state MASTER # MASTER on haproxy, BACKUP on haproxy2 virtual_router_id 51 priority 101 # 101 on haproxy, 100 on haproxy2 authentication { auth_type PASS auth_pass {{ auth_pass }} } virtual_ipaddress { 192.'><meta property="og:type" content="article"><meta property="og:url" content="https://kalebhawkins.github.io/KryoLogs/docs/linux/redhat/haproxycluster/"><meta property="og:image" content="https://kalebhawkins.github.io/KryoLogs/opengraph/card-base-2_hu06b1a92291a380a0d2e0ec03dab66b2f_17642_filter_5759188873204047575.png"><meta property="article:section" content="docs"><meta property="article:published_time" content="2024-05-30T14:35:56-05:00"><meta property="article:modified_time" content="2024-05-30T14:35:56-05:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://kalebhawkins.github.io/KryoLogs/opengraph/card-base-2_hu06b1a92291a380a0d2e0ec03dab66b2f_17642_filter_5759188873204047575.png"><meta name=twitter:title content="Setting Up HAProxy Clusters"><meta name=twitter:description content='Install Required Packages linkInstall haproxy and keepalived packages.
+dnf install -y keepalived haproxy Configure Keepalived linkConfigure firewall rules for keepalived VRRP protocol.
+firewall-cmd --add-rich-rule=&#39;rule protocol value="vrrp" accept&#39; --permanent firewall-cmd --reload Configure keepalived.
+vi /etc/keepalived/keepalived.conf global_defs { notification_email { admin@example.com } notification_email_from noreply@example.com smtp_server 127.0.0.1 smtp_connect_timeout 60 } vrrp_script chk_haproxy { script "killall -0 haproxy" # check the haproxy process interval 2 # every 2 seconds weight 2 # add 2 points if OK } vrrp_instance VI_1 { interface eth0 # interface to monitor state MASTER # MASTER on haproxy, BACKUP on haproxy2 virtual_router_id 51 priority 101 # 101 on haproxy, 100 on haproxy2 authentication { auth_type PASS auth_pass {{ auth_pass }} } virtual_ipaddress { 192.'><script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script><script type=text/javascript src=https://kalebhawkins.github.io/KryoLogs/docs/js/flexsearch.bundle.min.249548594cb6843f3060a3cdd3043799676c59ce8db83358a3fc2e4d20598d05dfa6ce4994805d2835cb33b54dc9b9e7.js integrity=sha384-JJVIWUy2hD8wYKPN0wQ3mWdsWc6NuDNYo/wuTSBZjQXfps5JlIBdKDXLM7VNybnn crossorigin=anonymous></script><link rel=stylesheet href=/KryoLogs/docs/scss/style.min.31963321d5565b1e541ae2d37596f1f564473d3c25f8daa0462d762d25fdc50f171101df34a9f990a740997947dc3172.css integrity=sha384-MZYzIdVWWx5UGuLTdZbx9WRHPTwl+NqgRi12LSX9xQ8XEQHfNKn5kKdAmXlH3DFy crossorigin=anonymous></head><body><div class=content><div class="page-wrapper toggled"><nav id=sidebar class=sidebar-wrapper><div class=sidebar-brand><a href=/KryoLogs/ aria-label=HomePage alt=HomePage><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><path d="m143 39.5c-18 0-18 18-18 18s0-18-18-18H22c-2.76.0-5 2.24-5 5v143c0 2.76 2.24 5 5 5h76c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h76c2.76.0 5-2.24 5-5V44.5c0-2.76-2.24-5-5-5h-85zM206 163c0 1.38-1.12 2.5-2.5 2.5H143c-18 0-18 18-18 18s0-18-18-18H46.5c-1.38.0-2.5-1.12-2.5-2.5V69c0-1.38 1.12-2.5 2.5-2.5H98c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h51.5c1.38.0 2.5 1.12 2.5 2.5v94z" style="fill:#06f"/></svg></a></div><div class=sidebar-content style="height:calc(100% - 131px)"><ul class=sidebar-menu><li class="sidebar-dropdown no-icon"><button class=btn>
+Tools</button><div class=sidebar-submenu><ul><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/tools/vcsim/>VCSim</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/tools/powercli/>PowerCLI</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/tools/minikube/>Minikube</a></li></ul></div></li><li class="sidebar-dropdown no-icon current active"><button class=btn>
+Linux</button><div class="sidebar-submenu d-block"><ul><li class="sidebar-dropdown nested no-icon"><button class=btn>
+Openshift</button><div class=sidebar-submenu><ul><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/linux/openshift/vsphere-storageclasses/>VSphere StorageClasses</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/linux/openshift/ownership-transfer/>Ownership Transfer</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/linux/openshift/machinesets/>Machinesets</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/linux/openshift/authentication-operator-degraded/>Authentication Operator Degraded</a></li></ul></div></li><li class="sidebar-dropdown nested no-icon"><button class=btn>
+Ubuntu</button><div class=sidebar-submenu><ul></ul></div></li><li class="sidebar-dropdown nested no-icon current active"><button class=btn>
+Redhat</button><div class="sidebar-submenu d-block"><ul><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/linux/redhat/vmware-template/>Vmware Template</a></li><li class="current no-icon"><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/linux/redhat/haproxycluster/>Setting Up HAProxy Clusters</a></li></ul></div></li></ul></div></li></ul></div><ul class="sidebar-footer list-unstyled mb-0"></ul></nav><main class="page-content bg-transparent"><div id=top-header class="top-header d-print-none"><div class="header-bar d-flex justify-content-between"><div class="d-flex align-items-center"><a href=/KryoLogs/ class="logo-icon me-3" aria-label=HomePage alt=HomePage><div class=small><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><path d="m143 39.5c-18 0-18 18-18 18s0-18-18-18H22c-2.76.0-5 2.24-5 5v143c0 2.76 2.24 5 5 5h76c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h76c2.76.0 5-2.24 5-5V44.5c0-2.76-2.24-5-5-5h-85zM206 163c0 1.38-1.12 2.5-2.5 2.5H143c-18 0-18 18-18 18s0-18-18-18H46.5c-1.38.0-2.5-1.12-2.5-2.5V69c0-1.38 1.12-2.5 2.5-2.5H98c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h51.5c1.38.0 2.5 1.12 2.5 2.5v94z" style="fill:#06f"/></svg></div><div class=big><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><path d="m143 39.5c-18 0-18 18-18 18s0-18-18-18H22c-2.76.0-5 2.24-5 5v143c0 2.76 2.24 5 5 5h76c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h76c2.76.0 5-2.24 5-5V44.5c0-2.76-2.24-5-5-5h-85zM206 163c0 1.38-1.12 2.5-2.5 2.5H143c-18 0-18 18-18 18s0-18-18-18H46.5c-1.38.0-2.5-1.12-2.5-2.5V69c0-1.38 1.12-2.5 2.5-2.5H98c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h51.5c1.38.0 2.5 1.12 2.5 2.5v94z" style="fill:#06f"/></svg></div></a><button id=close-sidebar class="btn btn-icon btn-soft">
+<span class="material-icons size-20 menu-icon align-middle">menu</span>
+</button>
+<button id=flexsearch-button class="ms-3 btn btn-soft" data-bs-toggle=collapse data-bs-target=#FlexSearchCollapse aria-expanded=false aria-controls=FlexSearchCollapse>
+<span class="material-icons size-20 menu-icon align-middle">search</span>
+<span class="flexsearch-button-placeholder ms-1 me-2 d-none d-sm-block">Search</span><div class="d-none d-sm-block"><span class=flexsearch-button-keys><kbd class=flexsearch-button-cmd-key><svg width="44" height="15"><path d="M2.118 11.5A1.519 1.519.0 011 11.042 1.583 1.583.0 011 8.815a1.519 1.519.0 011.113-.458h.715V6.643h-.71A1.519 1.519.0 011 6.185 1.519 1.519.0 01.547 5.071 1.519 1.519.0 011 3.958 1.519 1.519.0 012.118 3.5a1.519 1.519.0 011.114.458A1.519 1.519.0 013.69 5.071v.715H5.4V5.071A1.564 1.564.0 016.976 3.5 1.564 1.564.0 018.547 5.071 1.564 1.564.0 016.976 6.643H6.261V8.357h.715a1.575 1.575.0 011.113 2.685 1.583 1.583.0 01-2.227.0A1.519 1.519.0 015.4 9.929V9.214H3.69v.715a1.519 1.519.0 01-.458 1.113A1.519 1.519.0 012.118 11.5zm0-.857a.714.714.0 00.715-.714V9.214H2.118a.715.715.0 100 1.429zm4.858.0a.715.715.0 100-1.429H6.261v.715a.714.714.0 00.715.714zM3.69 8.357H5.4V6.643H3.69zM2.118 5.786h.715V5.071a.714.714.0 00-.715-.714.715.715.0 00-.5 1.22A.686.686.0 002.118 5.786zm4.143.0h.715a.715.715.0 00.5-1.22.715.715.0 00-1.22.5z" fill="currentcolor"/><path d="M12.4 11.475H11.344l3.879-7.95h1.056z" fill="currentcolor"/><path d="M25.073 5.384l-.864.576a2.121 2.121.0 00-1.786-.923 2.207 2.207.0 00-2.266 2.326 2.206 2.206.0 002.266 2.325 2.1 2.1.0 001.782-.918l.84.617a3.108 3.108.0 01-2.622 1.293 3.217 3.217.0 01-3.349-3.317 3.217 3.217.0 013.349-3.317A3.046 3.046.0 0125.073 5.384z" fill="currentcolor"/><path d="M30.993 5.142h-2.07v5.419H27.891V5.142h-2.07V4.164h5.172z" fill="currentcolor"/><path d="M34.67 4.164c1.471.0 2.266.658 2.266 1.851.0 1.087-.832 1.809-2.134 1.855l2.107 2.691h-1.28L33.591 7.87H33.07v2.691H32.038v-6.4zm-1.6.969v1.8h1.572c.832.0 1.22-.3 1.22-.918s-.411-.882-1.22-.882z" fill="currentcolor"/><path d="M42.883 10.561H38.31v-6.4h1.033V9.583h3.54z" fill="currentcolor"/></svg>
+</kbd><kbd class=flexsearch-button-key><svg width="15" height="15"><path d="M5.926 12.279H4.41L9.073 2.721H10.59z" fill="currentcolor"/></svg></kbd></span></div></button></div><div class="d-flex align-items-center"><ul class="list-unstyled mb-0"><li class="list-inline-item mb-0"><a href=https://github.com/KalebHawkins alt=github rel="noopener noreferrer" target=_blank><div class="btn btn-icon btn-default border-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></div></a></li></ul><button id=mode class="btn btn-icon btn-default ms-2" type=button aria-label="Toggle user interface mode">
+<span class=toggle-dark><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 48 48" fill="currentcolor"><path d="M24 42q-7.5.0-12.75-5.25T6 24t5.25-12.75T24 6q.4.0.85.025.45.025 1.15.075-1.8 1.6-2.8 3.95t-1 4.95q0 4.5 3.15 7.65Q28.5 25.8 33 25.8q2.6.0 4.95-.925T41.9 22.3q.05.6.075.975Q42 23.65 42 24q0 7.5-5.25 12.75T24 42zm0-3q5.45.0 9.5-3.375t5.05-7.925q-1.25.55-2.675.825Q34.45 28.8 33 28.8q-5.75.0-9.775-4.025T19.2 15q0-1.2.25-2.575t.9-3.125q-4.9 1.35-8.125 5.475Q9 18.9 9 24q0 6.25 4.375 10.625T24 39zm-.2-14.85z"/></svg>
+</span><span class=toggle-light><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 48 48" fill="currentcolor"><path d="M24 31q2.9.0 4.95-2.05T31 24t-2.05-4.95T24 17t-4.95 2.05T17 24t2.05 4.95T24 31zm0 3q-4.15.0-7.075-2.925T14 24t2.925-7.075T24 14t7.075 2.925T34 24t-2.925 7.075T24 34zM3.5 25.5q-.65.0-1.075-.425Q2 24.65 2 24t.425-1.075Q2.85 22.5 3.5 22.5h5q.65.0 1.075.425Q10 23.35 10 24t-.425 1.075T8.5 25.5zm36 0q-.65.0-1.075-.425Q38 24.65 38 24t.425-1.075T39.5 22.5h5q.65.0 1.075.425Q46 23.35 46 24t-.425 1.075-1.075.425zM24 10q-.65.0-1.075-.425Q22.5 9.15 22.5 8.5v-5q0-.65.425-1.075Q23.35 2 24 2t1.075.425T25.5 3.5v5q0 .65-.425 1.075Q24.65 10 24 10zm0 36q-.65.0-1.075-.425T22.5 44.5v-5q0-.65.425-1.075Q23.35 38 24 38t1.075.425.425 1.075v5q0 .65-.425 1.075Q24.65 46 24 46zM12 14.1l-2.85-2.8q-.45-.45-.425-1.075.025-.625.425-1.075.45-.45 1.075-.45t1.075.45L14.1 12q.4.45.4 1.05.0.6-.4 1-.4.45-1.025.45T12 14.1zm24.7 24.75L33.9 36q-.4-.45-.4-1.075t.45-1.025q.4-.45 1-.45t1.05.45l2.85 2.8q.45.45.425 1.075-.025.625-.425 1.075-.45.45-1.075.45t-1.075-.45zM33.9 14.1q-.45-.45-.45-1.05.0-.6.45-1.05l2.8-2.85q.45-.45 1.075-.425.625.025 1.075.425.45.45.45 1.075t-.45 1.075L36 14.1q-.4.4-1.025.4t-1.075-.4zM9.15 38.85q-.45-.45-.45-1.075t.45-1.075L12 33.9q.45-.45 1.05-.45.6.0 1.05.45.45.45.45 1.05.0.6-.45 1.05l-2.8 2.85q-.45.45-1.075.425-.625-.025-1.075-.425zM24 24z"/></svg></span></button></div></div><div class=collapse id=FlexSearchCollapse><div class=flexsearch-container><div class=flexsearch-keymap><li><kbd class=flexsearch-button-cmd-key><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8m3-3-3 3-3-3"/></g></svg></kbd>
+<kbd class=flexsearch-button-cmd-key><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8m3 3-3-3-3 3"/></g></svg></kbd>
+<span class=flexsearch-key-label>to navigate</span></li><li><kbd class=flexsearch-button-cmd-key><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4m3 3-3-3 3-3"/></g></svg></kbd>
+<span class=flexsearch-key-label>to select</span></li><li><kbd class=flexsearch-button-cmd-key><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993.0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016s1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5s-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864.0 1.6425 1.031 1.5443 2.2492h-2.956"/></g></svg></kbd>
+<span class=flexsearch-key-label>to close</span></li></div><form class="flexsearch position-relative flex-grow-1 ms-2 me-2"><div class="d-flex flex-row"><input id=flexsearch class=form-control type=search placeholder=Search aria-label=Search autocomplete=off>
+<button id=hideFlexsearch type=button class="ms-2 btn btn-soft">
+cancel</button></div><div id=suggestions class="shadow rounded-1 d-none"></div></form></div></div></div><div class=container-fluid><div class=layout-spacing><div class="d-md-flex justify-content-between align-items-center"><nav aria-label=breadcrumb class="d-inline-block pb-2 mt-1 mt-sm-0"><ul id=breadcrumbs class="breadcrumb bg-transparent mb-0" itemscope itemtype=https://schema.org/BreadcrumbList><li class="breadcrumb-item text-capitalize active" aria-current=page itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemprop=item href=/KryoLogs/docs/><i class="material-icons size-20 align-text-bottom" itemprop=name>Home</i>
+</a><meta itemprop=position content='1'></li><li class="breadcrumb-item text-capitalize" itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemprop=item href=/KryoLogs/docs/linux/><span itemprop=name>Linux</span>
+</a><meta itemprop=position content='2'></li><li class="breadcrumb-item text-capitalize" itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemprop=item href=/KryoLogs/docs/linux/redhat/><span itemprop=name>Redhat</span>
+</a><meta itemprop=position content='3'></li><li class="breadcrumb-item text-capitalize active" itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Setting Up HAProxy Clusters</span>
+<meta itemprop=position content='4'></li></ul></nav></div><div class="row flex-xl-nowrap"><div class="docs-toc col-xl-3 d-xl-block"><toc><div class="fw-bold text-uppercase mb-2">On this page</div><nav id=TableOfContents><ul><li><a href=#install-required-packages>Install Required Packages</a></li><li><a href=#configure-keepalived>Configure Keepalived</a></li><li><a href=#configure-haproxy>Configure HAProxy</a></li></ul></nav></toc></div><div class="docs-toc-mobile d-print-none d-xl-none"><button id=toc-dropdown-btn class="btn-secondary dropdown-toggle" type=button data-bs-toggle=dropdown data-bs-offset=0,0 aria-expanded=false>
+Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href=#install-required-packages>Install Required Packages</a></li><li><a href=#configure-keepalived>Configure Keepalived</a></li><li><a href=#configure-haproxy>Configure HAProxy</a></li></ul></nav></div><div class="docs-content col-12 col-xl-9 mt-0"><div class="mb-0 d-flex"><h1 class="content-title mb-0">Setting Up HAProxy Clusters</h1></div><div id=content class=main-content><div data-prismjs-copy data-prismjs-copy-success data-prismjs-copy-error><h2 id=install-required-packages>Install Required Packages <a href=#install-required-packages class=anchor aria-hidden=true><i class="material-icons align-middle">link</i></a></h2><p>Install <code>haproxy</code> and <code>keepalived</code> packages.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>dnf install -y keepalived haproxy</span></span></code></pre></div><h2 id=configure-keepalived>Configure Keepalived <a href=#configure-keepalived class=anchor aria-hidden=true><i class="material-icons align-middle">link</i></a></h2><p>Configure firewall rules for keepalived <code>VRRP</code> protocol.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>firewall-cmd --add-rich-rule<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;rule protocol value=&#34;vrrp&#34; accept&#39;</span> --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload</span></span></code></pre></div><p>Configure keepalived.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vi /etc/keepalived/keepalived.conf</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>global_defs <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   notification_email <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>       admin@example.com
+</span></span><span style=display:flex><span>   <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>   notification_email_from noreply@example.com
+</span></span><span style=display:flex><span>   smtp_server 127.0.0.1
+</span></span><span style=display:flex><span>   smtp_connect_timeout <span style=color:#ae81ff>60</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vrrp_script chk_haproxy <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  script <span style=color:#e6db74>&#34;killall -0 haproxy&#34;</span>   <span style=color:#75715e># check the haproxy process</span>
+</span></span><span style=display:flex><span>  interval <span style=color:#ae81ff>2</span>                    <span style=color:#75715e># every 2 seconds</span>
+</span></span><span style=display:flex><span>  weight <span style=color:#ae81ff>2</span>                      <span style=color:#75715e># add 2 points if OK</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vrrp_instance VI_1 <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  interface eth0                <span style=color:#75715e># interface to monitor</span>
+</span></span><span style=display:flex><span>  state MASTER                  <span style=color:#75715e># MASTER on haproxy, BACKUP on haproxy2</span>
+</span></span><span style=display:flex><span>  virtual_router_id <span style=color:#ae81ff>51</span>
+</span></span><span style=display:flex><span>  priority <span style=color:#ae81ff>101</span>                  <span style=color:#75715e># 101 on haproxy, 100 on haproxy2</span>
+</span></span><span style=display:flex><span>  authentication <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    auth_type PASS
+</span></span><span style=display:flex><span>    auth_pass <span style=color:#f92672>{{</span> auth_pass <span style=color:#f92672>}}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>  virtual_ipaddress <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    192.168.0.100               <span style=color:#75715e># virtual ip address</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>  track_script <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    chk_haproxy
+</span></span><span style=display:flex><span>  <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sysctl -w net.ipv4.ip_forward<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>systemctl enable --now keepalived</span></span></code></pre></div><h2 id=configure-haproxy>Configure HAProxy <a href=#configure-haproxy class=anchor aria-hidden=true><i class="material-icons align-middle">link</i></a></h2><p>Configure <code>haproxy</code> for <code>SELinux</code> HTTP.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vi /etc/firewalld/services/haproxy-http.xml</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&lt;?xml version<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;1.0&#34;</span> encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>?&gt;
+</span></span><span style=display:flex><span>&lt;service&gt;
+</span></span><span style=display:flex><span>&lt;short&gt;HAProxy-HTTP&lt;/short&gt;
+</span></span><span style=display:flex><span>&lt;description&gt;HAProxy load-balancer&lt;/description&gt;
+</span></span><span style=display:flex><span>&lt;port protocol<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;tcp&#34;</span> port<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;80&#34;</span>/&gt;
+</span></span><span style=display:flex><span>&lt;/service&gt;</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>restorecon /etc/firewalld/services/haproxy-http.xml
+</span></span><span style=display:flex><span>chmod <span style=color:#ae81ff>640</span> /etc/firewalld/services/haproxy-http.xml</span></span></code></pre></div><p>Configure the <code>haproxy</code> configuration file.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vi /etc/haproxy/haproxy.cfg</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>frontend main *:80
+</span></span><span style=display:flex><span>    mode http
+</span></span><span style=display:flex><span>    default_backend app
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>backend app
+</span></span><span style=display:flex><span>    balance roundrobin
+</span></span><span style=display:flex><span>    mode http
+</span></span><span style=display:flex><span>    server app1 10.0.0.71:80 check
+</span></span><span style=display:flex><span>    server app2 10.0.0.80:80 check</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>systemctl enable --now haproxy
+</span></span><span style=display:flex><span>systemctl restart haproxy</span></span></code></pre></div></div></div><div><hr class=doc-hr><div id=doc-nav class=d-print-none><div class="row flex-xl-nowrap"><div class="col-sm-6 pt-2 doc-next"><a href=/KryoLogs/docs/linux/redhat/vmware-template/><div class="card h-100 my-1"><div class="card-body py-2"><p class="card-title fs-5 fw-semibold lh-base mb-0"><i class="material-icons align-middle">navigate_before</i> Vmware Template</p></div></div></a></div></div></div></div></div></div></div></div><footer class="shadow py-3 d-print-none"><div class=container-fluid><div class="row align-items-center"><div class=col><div class="text-sm-start text-center mx-md-2"><p class=mb-0></p></div></div></div></div></footer></main></div></div><button onclick=topFunction() id=back-to-top aria-label="Back to Top Button" class="back-to-top fs-5"><svg width="24" height="24"><path d="M12 10.224l-6.3 6.3-1.38-1.372L12 7.472l7.68 7.68-1.38 1.376z" style="fill:#fff"/></svg></button>
+<script>(()=>{var e=document.getElementById("mode");e!==null&&(window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{e.matches?(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")):(localStorage.setItem("theme","light"),document.documentElement.removeAttribute("data-dark-mode"))}),e.addEventListener("click",()=>{document.documentElement.toggleAttribute("data-dark-mode"),localStorage.setItem("theme",document.documentElement.hasAttribute("data-dark-mode")?"dark":"light")}),localStorage.getItem("theme")==="dark"?document.documentElement.setAttribute("data-dark-mode",""):document.documentElement.removeAttribute("data-dark-mode"))})()</script><script src=/KryoLogs/docs/js/bootstrap.d479bcf750dc64ea5dadc35d782fdc55066b54b6f80655bd81380639aa6289e5accdc55d58d8b2878a01876f06b22641.js integrity=sha384-1Hm891DcZOpdrcNdeC/cVQZrVLb4BlW9gTgGOapiieWszcVdWNiyh4oBh28GsiZB defer></script><script type=text/javascript src=https://kalebhawkins.github.io/KryoLogs/docs/js/bundle.min.4b07706b1da436c9600e641a8cf51af20b3e497ead85e0d0af7552a0314e8e317dc63bb69d12c072092518621478900d.js integrity=sha384-Swdwax2kNslgDmQajPUa8gs+SX6theDQr3VSoDFOjjF9xju2nRLAcgklGGIUeJAN crossorigin=anonymous defer></script><script type=module>
+    var suggestions = document.getElementById('suggestions');
+    var search = document.getElementById('flexsearch');
+
+    const flexsearchContainer = document.getElementById('FlexSearchCollapse');
+
+    const hideFlexsearchBtn = document.getElementById('hideFlexsearch');
+
+    const configObject = { toggle: false }
+    const flexsearchContainerCollapse = new Collapse(flexsearchContainer, configObject) 
+
+    if (search !== null) {
+        document.addEventListener('keydown', inputFocus);
+        flexsearchContainer.addEventListener('shown.bs.collapse', function () {
+            search.focus();
+        });
+        
+        var topHeader = document.getElementById("top-header");
+        document.addEventListener('click', function(elem) {
+            if (!flexsearchContainer.contains(elem.target) && !topHeader.contains(elem.target))
+                flexsearchContainerCollapse.hide();
+        });
+    }
+
+    hideFlexsearchBtn.addEventListener('click', () =>{
+        flexsearchContainerCollapse.hide()
+    })
+
+    function inputFocus(e) {
+        if (e.ctrlKey && e.key === '/') {
+            e.preventDefault();
+            flexsearchContainerCollapse.toggle();
+        }
+        if (e.key === 'Escape' ) {
+            search.blur();
+            
+            flexsearchContainerCollapse.hide();
+        }
+    };
+
+    document.addEventListener('click', function(event) {
+
+    var isClickInsideElement = suggestions.contains(event.target);
+
+    if (!isClickInsideElement) {
+        suggestions.classList.add('d-none');
+    }
+
+    });
+
+    
+
+
+    document.addEventListener('keydown',suggestionFocus);
+
+    function suggestionFocus(e) {
+    const suggestionsHidden = suggestions.classList.contains('d-none');
+    if (suggestionsHidden) return;
+
+    const focusableSuggestions= [...suggestions.querySelectorAll('a')];
+    if (focusableSuggestions.length === 0) return;
+
+    const index = focusableSuggestions.indexOf(document.activeElement);
+
+    if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const nextIndex = index > 0 ? index - 1 : 0;
+        focusableSuggestions[nextIndex].focus();
+    }
+    else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const nextIndex= index + 1 < focusableSuggestions.length ? index + 1 : index;
+        focusableSuggestions[nextIndex].focus();
+    }
+
+    }
+
+    
+
+
+    (function(){
+
+    var index = new FlexSearch.Document({
+        
+        tokenize: "forward",
+        minlength:  0 ,
+        cache:  100 ,
+        optimize:  true ,
+        document: {
+        id: 'id',
+        store: [
+            "href", "title", "description"
+        ],
+        index: ["title", "description", "content"]
+        }
+    });
+
+
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+
+    
+
+    index.add(
+            {
+                id:  0 ,
+                href: "\/KryoLogs\/docs\/tools\/vcsim\/",
+                title: "VCSim",
+                description: "Overview linkThis package implements a vSphere Web Services (SOAP) SDK endpoint intended for testing consumers of the API. While the mock framework is written in the Go language, it can be used by any language that can talk to the vSphere API.\nSee their github for more info.\nUsage linkTo run vcsim using docker run the following:\ndocker run -p 8989:8989 vmware/vcsim:latest To test functionality of the container you can run the following command.",
+                content: "Overview linkThis package implements a vSphere Web Services (SOAP) SDK endpoint intended for testing consumers of the API. While the mock framework is written in the Go language, it can be used by any language that can talk to the vSphere API.\nSee their github for more info.\nUsage linkTo run vcsim using docker run the following:\ndocker run -p 8989:8989 vmware/vcsim:latest To test functionality of the container you can run the following command.\ncurl -sk https://user:pass@127.0.0.1:8989/about # Example out #{ # \"Methods\": [ # \"AcquireCloneTicket\", # \"AcquireGenericServiceTicket\", # \"AddAuthorizationRole\", # \"AddCustomFieldDef\", # \"AddDVPortgroup_Task\", # \"AddHost_Task\", "
+            }
+        );
+    index.add(
+            {
+                id:  1 ,
+                href: "\/KryoLogs\/docs\/tools\/powercli\/",
+                title: "PowerCLI",
+                description: "Overview linkVmware PowerCLI is a Powershell module used interact with vCenter amd vSphere APIs. This allows for simple automation of mundane, redundant tasks, like inventorying servers. Installation linkTo install PowerCLI open up a powershell window and run the following command. Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber Using PowerCLI linkGetting connected to your cluster can be performed with one command. Connect-ViServer -Credentials $(Get-Credentials) -Force Get a list of your clusters, hosts, and vms.",
+                content: "Overview linkVmware PowerCLI is a Powershell module used interact with vCenter amd vSphere APIs. This allows for simple automation of mundane, redundant tasks, like inventorying servers.\nInstallation linkTo install PowerCLI open up a powershell window and run the following command.\nInstall-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber Using PowerCLI linkGetting connected to your cluster can be performed with one command.\nConnect-ViServer -Credentials $(Get-Credentials) -Force Get a list of your clusters, hosts, and vms.\nGet-Cluster Get-Host Get-VM There are many additional commands that can be used to automate entire infratructure deployments.\n"
+            }
+        );
+    index.add(
+            {
+                id:  2 ,
+                href: "\/KryoLogs\/docs\/tools\/minikube\/",
+                title: "Minikube",
+                description: "Overview linkMinikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes. All you need is Docker (or similarly compatible) container or a Virtual Machine environment, and Kubernetes is a single command away: minikube start. Installation link curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 sudo install minikube-linux-amd64 /usr/local/bin/minikube Uninstallation link sudo rm /usr/local/bin/minikube Customize Cluster linkGet configurable items using: minikube config --help To set configuration properties: minikube config set To get current configuration:",
+                content: "Overview linkMinikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes. All you need is Docker (or similarly compatible) container or a Virtual Machine environment, and Kubernetes is a single command away: minikube start.\nInstallation link curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 sudo install minikube-linux-amd64 /usr/local/bin/minikube Uninstallation link sudo rm /usr/local/bin/minikube Customize Cluster linkGet configurable items using:\nminikube config --help To set configuration properties:\nminikube config set To get current configuration:\nminikube config view Minikube Add-Ons linkList addons using:\nminkube addons list Enable addons\nminikube addon enable Set Minikube $HOME link export MINIKUBE_HOME=/path/to/minikube/home Preferenced Setup link export MINIKUBE_HOME=/path/to/minikube/home minikube config set cpus 8 minikube config set memory 16384 minikube start alias kubectl=\"minikube kubectl --\" "
+            }
+        );
+    index.add(
+            {
+                id:  3 ,
+                href: "\/KryoLogs\/docs\/tools\/",
+                title: "Tools",
+                description: "A collection of documentation and notes for various tools.",
+                content: "Overview linkMinikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes. All you need is Docker (or similarly compatible) container or a Virtual Machine environment, and Kubernetes is a single command away: minikube start.\nInstallation link curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 sudo install minikube-linux-amd64 /usr/local/bin/minikube Uninstallation link sudo rm /usr/local/bin/minikube Customize Cluster linkGet configurable items using:\nminikube config --help To set configuration properties:\nminikube config set To get current configuration:\nminikube config view Minikube Add-Ons linkList addons using:\nminkube addons list Enable addons\nminikube addon enable Set Minikube $HOME link export MINIKUBE_HOME=/path/to/minikube/home Preferenced Setup link export MINIKUBE_HOME=/path/to/minikube/home minikube config set cpus 8 minikube config set memory 16384 minikube start alias kubectl=\"minikube kubectl --\" "
+            }
+        );
+    index.add(
+            {
+                id:  4 ,
+                href: "\/KryoLogs\/docs\/linux\/openshift\/vsphere-storageclasses\/",
+                title: "VSphere StorageClasses",
+                description: "In this post we are going to look at two different things. First, we will look at modifing the default datastore for our vsphere storage class. Second, we will look at creating storage classes that specify the datastore.\nThe Default Datastore link This change will trigger the nodes to reboot. Always make sure you are in an open maintenaince window or that your applications are designed to work through pods migrating from node to node for less impact.",
+                content: "In this post we are going to look at two different things. First, we will look at modifing the default datastore for our vsphere storage class. Second, we will look at creating storage classes that specify the datastore.\nThe Default Datastore link This change will trigger the nodes to reboot. Always make sure you are in an open maintenaince window or that your applications are designed to work through pods migrating from node to node for less impact.\nThe default datastore is located in a configmap. This configmap is called cloud-provider-config. This configmap can be found in the openshift-config namespace. We can view it using the following command.\noc get cm cloud-provider-config -n openshift-config -o yaml You can then modify the default-datastore entry by editing the yaml.\noc edit cm cloud-provider-config -n openshift-config This will trigger the kube-controller-manager cluster operator to start updating which will cause the cluster nodes to reboot. This will cause other cluster operators to update as the master nodes roll over. This can take variable amount of time to complete depending on the size of the cluster. As long as everything is pprogressing you are OK 😬. You can watch the cluster update using the command below. You may have to reauthenticate at some point but again all should be fine. There is little to no application impact. The only impact is when the pods are moving from node to node and depending on the application design this may or may not be an issue.\nwatch oc get co Once all of that is done you can verify the change by looking at the cloud-conf configmap in the openshift-cloud-controller-manager namespace.\noc get cm -n openshift-cloud-controller-manager -o yaml Test provisioning of a new PV as well. Make sure it get placed in the right place. Make your custom resource definition (CRD) and apply it to the cluster using whatever method you use for cluster or application config, gitops, etc. For this demo I’ll use kubectl.\n# filename: new-pvc.yaml kind: PersistentVolumeClaim apiVersion: v1 metadata: name: namespace: spec: accessModes: - ReadWriteOnce resources: requests: storage: 1Gi storageClassName: volumeMode: Filesystem kubectl apply -f new-pvc.yaml Specify Datastores at the StorageClass Level linkYou will need to create a CRD to create the storageclass and apply it to the cluster. The CRD is just a yaml file.\n# filename: sc-custom-ds.yaml kind: StorageClass apiVersion: storage.k8s.io/v1 metadata: name: annotations: kubernetes.io/description: A good description for your storageclass storageclass.kubernetes.io/is-default-class: 'true' provisioner: kubernetes.io/vsphere-volume parameters: datastore: # \u003c- Here is where you specify your datastore. diskformat: eagerzeroedthick reclaimPolicy: Retain # \u003c- Modify this depending on your policies (see references for more info) volumeBindingMode: Immediate Now you can apply the CRD to the cluster.\nkubectl apply -f sc-custom-ds.yaml That is all there is to it. Now, when you create your PVs against the specified storage class they will use the datastore provided in the configuration.\nReferences link Default Datastore Reclaim Policies "
+            }
+        );
+    index.add(
+            {
+                id:  5 ,
+                href: "\/KryoLogs\/docs\/linux\/openshift\/ownership-transfer\/",
+                title: "Ownership Transfer",
+                description: "Overview linkThere are two steps to transfer ownership to a new user or organization.\nInitiate the transfer in Openshift Cluster Manager. Change the cluster pull secret to the new owner’s pull secret from CLI, The second step must take place within 5 days of the transfer initiation of cluster transfer from the Openshift Cluster Manager.\nTransfering Ownership link Login to the Openshift Cluster Manager as the current owner. Select the cluster you want to transfer from the Clusters list.",
+                content: "Overview linkThere are two steps to transfer ownership to a new user or organization.\nInitiate the transfer in Openshift Cluster Manager. Change the cluster pull secret to the new owner’s pull secret from CLI, The second step must take place within 5 days of the transfer initiation of cluster transfer from the Openshift Cluster Manager.\nTransfering Ownership link Login to the Openshift Cluster Manager as the current owner. Select the cluster you want to transfer from the Clusters list. Click Actions -\u003e Transfer Cluster Ownship. Click Initiate transfer to confirm this action. Update the Pull Secret linkThe pull secret must be updated on the cluster you are wanting to transfer ownership of.\nClusters that are versions earlier than 4.7.4 requires reboot to update the pull secret. This can temporarily limit usability of the cluster.\nLog into the Openshift Cluster Manager as the user taking ownership of the cluster. Download or copy the pull secret from the Downloads page under Tokens. Run the following command using the pull secret you downloaded. oc set data secret/pull-secret -n openshift-config --from-file=.dockerconfigjson=pull-secret.txt This begins updates to all nodes in the cluster, which can take some time depending on the size of your cluster.\nVerification Steps link Log into the Openshift Cluster Manager as the user taking ownership of the cluster. In Details, the Owner has been updated. In Cluster history, details of the transfer appear. Reference link Red Hat Cluster Manager "
+            }
+        );
+    index.add(
+            {
+                id:  6 ,
+                href: "\/KryoLogs\/docs\/linux\/openshift\/machinesets\/",
+                title: "Machinesets",
+                description: "In this document we are going to review the process of modifing a machineset to increase resources, for this example we will be increasing memory.\nModify The Machineset linkIn the first step we modify the machine set we want to modify. First we decide which machineset we want to modify we can get the machinesets using the following.\noc get machineset -n openshift-machine-api Now we want to modify our machineset’s memory.",
+                content: "In this document we are going to review the process of modifing a machineset to increase resources, for this example we will be increasing memory.\nModify The Machineset linkIn the first step we modify the machine set we want to modify. First we decide which machineset we want to modify we can get the machinesets using the following.\noc get machineset -n openshift-machine-api Now we want to modify our machineset’s memory. In our case our memory is set to memoryMib: 64000 (64GB) we want to set our memory to 128GB.\noc edit machineset -n openshift-machine-api # spec: # providerSpec: # ... # memoryMiB: 128000 # \u003c- This was 64000 # ... Applying The Changes linkNow that our changes are made we want apply them. This isn’t something that is automatically done. There are really two different methods that can be used for applying these changes.\nMethod One - Out with the Old linkThe first method is the simplest and most straight forward. We just delete a machine managed by the machineset so another machine will be created in its place.\noc get machine -n openshift-machine-api oc delete machine # Wait for the new machine to provision watch oc get machine -n openshift-machine-api # Wait for the new node to come into a ready state watch oc get nodes This will take some time to delete and after a few minutes you should see another machine being spun up in its place. If the new machine is taking longer then 10-15 minutes to complete provisioning and the node has either not appeared or come into a ready state you can check the machine-controller container logs.\noc logs -c machine-controller -n openshift-machine-api Method Two - Conservative linkThe second method is a little more conservative. First we will scale up our machineset, set an annotation on the machine we want to remove, and finally we scale back down our machineset. For this example imagine we have 3 machines in the machineset and thats what we want to end off with.\n# Scale up the machineset by 1 oc scale --replicas=4 machineset -n openshift-machine-api # Wait for the new machine to provision watch oc get machine -n openshift-machine-api # Wait for the new node to come into a ready state watch oc get nodes # Annotation the machine you want to have removed oc annotate machine/ -n openshift-machine-api machine.openshift.io/cluster-api-delete-machine=\"true\" # Scale back down oc scale --replicas=3 machineset -n openshift-machine-api You can repeat either of the two methods on your machinesets for worker and infrastructure nodes.\nMaster Nodes and Machinesets link If these steps are not followed precisely it will break your cluster. You will have to rebuild the cluster there is no recovery options.\nMaster nodes are a little more delegate when it comes to scaling up and down. There are additional checkout steps and those steps must be performed in order.\nStep one is to verify your current cluster is healthy. There are three steps to this.\nCheck that all master nodes are available. Make sure your pods are running. Check etcd memberlist, status, and endpoint health. # Check that all master nodes are available oc get etcd -o=jsonpath='{range .items[0].status.conditions[?(@.type==\"EtcdMembersAvailable\")]}{.message}{\"\\n\"}' # Make sure your pods are running oc -n openshift-etcd get pods -l k8s-app=etcd # Check etcd memberlist, status, and endpoint health. is one of the pods from the output of the previous command oc rsh -n openshift-etcd # Check the member list etcdctl member list -w table # Check the status etcdctl endpoint status -w table # Check the health etcdctl endpoint health -w table At this point assuming everything is healthy you can scale your machineset up.\noc scale --replicas=2 machineset -n openshift-machine-api This will take several minutes once the node is in a ready state we must wait for additional tasks to complete.\nNode must be in a ready state. Verifiy all cluster operators are finished progressing. Etcd pods must start up. New etcd peer must join the cluster. Check the status the same way we did in the first step. oc get nodes # All cluster operators should complete their progression before moving to the next step. watch oc get co oc -n openshift-etcd get pods -l k8s-app=etcd oc rsh -n openshift-etcd etcdctl member list -w table etcdctl endpoint status -w table etcdctl endpoint health -w table Now that we have our new master node in place it is time to remove the old one.\nWe need to annotate the machine we want to remove. This will tell the machine api which node to delete when scaling down. Finally, we scale down the machineset.\noc annotate machine/ -n openshift-machine-api machine.openshift.io/cluster-api-delete-machine=\"true\" oc scale --replicas=1 machineset -n openshift-machine-api Provide the cluster about 10 minutes to perform and cluster operator operations. After this will still see some unhealthy statuses. This is because we must remove the etcd peer manually. To do that we need to get back into one of the etcd pods.\noc -n openshift-etcd get pods -l k8s-app=etcd oc rsh -n openshift-etcd etcdctl member list -w table In the member list you will get the ID of the server you want to remove and perform the following command.\netcdctl member remove You will repeat the steps above for each master node machineset that you need to modify.\n"
+            }
+        );
+    index.add(
+            {
+                id:  7 ,
+                href: "\/KryoLogs\/docs\/linux\/openshift\/authentication-operator-degraded\/",
+                title: "Authentication Operator Degraded",
+                description: "Issue Summary linkWhen performing an oc get co the authentication cluster operator is reporting a degraded state with the following message.\nOAuthServerRouteEndpointAccessibleControllerAvailable: Get \"https://oauth-openshift.apps.zone.domain.com/healthz\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) Root Cause linkThis can be a result of many different things, network issues, domain name resolution issues, etc. In my case the authentication pods and authentication-operator pod running in the cluster were failing to reconciliate due to some node modifications.",
+                content: "Issue Summary linkWhen performing an oc get co the authentication cluster operator is reporting a degraded state with the following message.\nOAuthServerRouteEndpointAccessibleControllerAvailable: Get \"https://oauth-openshift.apps.zone.domain.com/healthz\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) Root Cause linkThis can be a result of many different things, network issues, domain name resolution issues, etc. In my case the authentication pods and authentication-operator pod running in the cluster were failing to reconciliate due to some node modifications.\nResolution linkDelete the authentication pods and authentication operator pods.\n# Get the authentication pod names oc get pods -n openshift-authentication # Delete the pods (repeat this step for each pod) oc delete pods -n openshift-authentication # Get the authentication-operator pod names oc get pods -n openshift-authentication-operator # Delete the operator pod oc delete pods -n openshift-authentication-operator "
+            }
+        );
+    index.add(
+            {
+                id:  8 ,
+                href: "\/KryoLogs\/docs\/linux\/openshift\/",
+                title: "Openshift",
+                description: "A collection of documentation and notes related to Openshift.",
+                content: ""
+            }
+        );
+    index.add(
+            {
+                id:  9 ,
+                href: "\/KryoLogs\/docs\/linux\/ubuntu\/",
+                title: "Ubuntu",
+                description: "A collection of Ubuntu Linux related documentation and notes.",
+                content: ""
+            }
+        );
+    index.add(
+            {
+                id:  10 ,
+                href: "\/KryoLogs\/docs\/linux\/redhat\/vmware-template\/",
+                title: "Vmware Template",
+                description: "Prerequisites link Access to Red Hat’s access portal to download the Red Hat ISO. An active Red Hat Enterprise Linux subscription. Create the Virtual Machine linkSign into vCenter.\nRight-click the cluster you want to create the virtual machine on.\nSelect New Virtual Machine.\nSet the name and select a folder to place the template in.\nSelect the compute resource to place the template on.\nSelect the datastore to place the template on.",
+                content: "Prerequisites link Access to Red Hat’s access portal to download the Red Hat ISO. An active Red Hat Enterprise Linux subscription. Create the Virtual Machine linkSign into vCenter.\nRight-click the cluster you want to create the virtual machine on.\nSelect New Virtual Machine.\nSet the name and select a folder to place the template in.\nSelect the compute resource to place the template on.\nSelect the datastore to place the template on.\nSelect Compatibility.\nSelect the guest OS.\nGuest OS Family: Linux Guest OS Version: Red Hat Enterprise Linux 8 (64-bit) Customize the hardware.\nUse a 100Gb disk for the system OS disk. This will be what the partition scheme later on is based off of.\nMake sure the SCSI Controller is set to VMware Paravirtual.\nCreate the virtual machine.\nPrepare for Red Hat Installation linkDownload the REd Hat 8 ISO from Red Hat’s access portal.\nUpload the ISO to a datastore accessible to the host you put the template virtual machine on.\nRight-click on the template virtual machine.\nClick Edit Settings then connect the CD/DVD drive.\nDrop down the CD/DVD drive section\nSelect the Datastore ISO file on the first option.\nUse the BROWSE... button to select the ISO you uploaded.\nStart the virtual machine.\nRed Hat Installation linkFor the Installation screen navigate through the prompts selecting the correct settings.\nUnder Date \u0026 Time select your timezone. (NTP will be configured later)\nUnder Software Selection select minimal install.\nUnder Network \u0026 Host Name go ahead and connect your network adapter by clicking Configure....\nSet the device name to ens192.\nSet the IPv4 Settings to the desired values. If this is going to be statically set then the Method should be set to Manual.\nSet the IPv6 Settings to Disabled.\nUnder Installation Destination in the Storage Configuration section select Custom the click Done.\nIn the menu presented click the + button to add a mount point. See below for what the layout should look like.\nMount Point Size File System Device Type /boot 1G xfs Standard Partition /home 20G xfs LVM /var 25G xfs LVM / 55G xfs LVM swap 4G xfs Swap Click Done once all is configured. Create a user if desired and set the root password from the menu options.\nTemplate Configuration linkUse the below to perform the template configuration.\n# Register to Red Hat. subscription-manager register --username --password --autosubscribe # Update all system packages. dnf update -y # Get some essential tools. dnf install dnf-utils perl cloud-init python3-libselinux git bash-completion -y # Disable `cloud-init`. touch /etc/cloud/cloud-init.disabled # Seal the template. curl -L -o /opt/seal https://gist.githubusercontent.com/KalebHawkins/9a0877a6ba7bb0405ca32dc26b9a0004/raw/2455b03c49cab8c065335b14895905628d9313e9/Red%2520Hat%2520Template%2520Seal%2520Scripts chmod 700 /opt/seal /opt/seal "
+            }
+        );
+    index.add(
+            {
+                id:  11 ,
+                href: "\/KryoLogs\/docs\/linux\/",
+                title: "Linux",
+                description: "A collection of Linux related documentation and notes.",
+                content: ""
+            }
+        );
+    index.add(
+            {
+                id:  12 ,
+                href: "\/KryoLogs\/docs\/linux\/redhat\/",
+                title: "Redhat",
+                description: "A collection of Red Hat Linux related documentation and notes.",
+                content: ""
+            }
+        );
+    index.add(
+            {
+                id:  13 ,
+                href: "\/KryoLogs\/docs\/linux\/redhat\/haproxycluster\/",
+                title: "Setting Up HAProxy Clusters",
+                description: "Install Required Packages linkInstall haproxy and keepalived packages.\ndnf install -y keepalived haproxy Configure Keepalived linkConfigure firewall rules for keepalived VRRP protocol.\nfirewall-cmd --add-rich-rule='rule protocol value=\"vrrp\" accept' --permanent firewall-cmd --reload Configure keepalived.\nvi /etc/keepalived/keepalived.conf global_defs { notification_email { admin@example.com } notification_email_from noreply@example.com smtp_server 127.0.0.1 smtp_connect_timeout 60 } vrrp_script chk_haproxy { script \"killall -0 haproxy\" # check the haproxy process interval 2 # every 2 seconds weight 2 # add 2 points if OK } vrrp_instance VI_1 { interface eth0 # interface to monitor state MASTER # MASTER on haproxy, BACKUP on haproxy2 virtual_router_id 51 priority 101 # 101 on haproxy, 100 on haproxy2 authentication { auth_type PASS auth_pass {{ auth_pass }} } virtual_ipaddress { 192.",
+                content: "Install Required Packages linkInstall haproxy and keepalived packages.\ndnf install -y keepalived haproxy Configure Keepalived linkConfigure firewall rules for keepalived VRRP protocol.\nfirewall-cmd --add-rich-rule='rule protocol value=\"vrrp\" accept' --permanent firewall-cmd --reload Configure keepalived.\nvi /etc/keepalived/keepalived.conf global_defs { notification_email { admin@example.com } notification_email_from noreply@example.com smtp_server 127.0.0.1 smtp_connect_timeout 60 } vrrp_script chk_haproxy { script \"killall -0 haproxy\" # check the haproxy process interval 2 # every 2 seconds weight 2 # add 2 points if OK } vrrp_instance VI_1 { interface eth0 # interface to monitor state MASTER # MASTER on haproxy, BACKUP on haproxy2 virtual_router_id 51 priority 101 # 101 on haproxy, 100 on haproxy2 authentication { auth_type PASS auth_pass {{ auth_pass }} } virtual_ipaddress { 192.168.0.100 # virtual ip address } track_script { chk_haproxy } } sysctl -w net.ipv4.ip_forward=1 systemctl enable --now keepalived Configure HAProxy linkConfigure haproxy for SELinux HTTP.\nvi /etc/firewalld/services/haproxy-http.xml \u003c?xml version=\"1.0\" encoding=\"utf-8\"?\u003e HAProxy-HTTP HAProxy load-balancer "
+            }
+        );
+    index.add(
+            {
+                id:  14 ,
+                href: "\/KryoLogs\/docs\/",
+                title: "Docs",
+                description: "",
+                content: ""
+            }
+        );
+    search.addEventListener('input', show_results, true);
+
+    function show_results(){
+        const maxResult =  5 ;
+        const minlength =  0 ;
+        var searchQuery = sanitizeHTML(this.value);
+        var results = index.search(searchQuery, {limit: maxResult, enrich: true});
+
+        
+        const flatResults = new Map(); 
+        for (const result of results.flatMap(r => r.result)) {
+        if (flatResults.has(result.doc.href)) continue;
+        flatResults.set(result.doc.href, result.doc);
+        }
+
+        suggestions.innerHTML = "";
+        suggestions.classList.remove('d-none');
+
+        
+        if (searchQuery.length < minlength) {
+            const minCharMessage = document.createElement('div')
+            minCharMessage.innerHTML = `Please type at least <strong>${minlength}</strong> characters`
+            minCharMessage.classList.add("suggestion__no-results");
+            suggestions.appendChild(minCharMessage);
+            return;
+        } else {
+            
+            if (flatResults.size === 0 && searchQuery) {
+                const noResultsMessage = document.createElement('div')
+                noResultsMessage.innerHTML = "No results for" + ` "<strong>${searchQuery}</strong>"`
+                noResultsMessage.classList.add("suggestion__no-results");
+                suggestions.appendChild(noResultsMessage);
+                return;
+            }
+        }
+
+        
+        for(const [href, doc] of flatResults) {
+            const entry = document.createElement('div');
+            suggestions.appendChild(entry);
+
+            const a = document.createElement('a');
+            a.href = href;
+            entry.appendChild(a);
+
+            const title = document.createElement('span');
+            title.textContent = doc.title;
+            title.classList.add("suggestion__title");
+            a.appendChild(title);
+
+            const description = document.createElement('span');
+            description.textContent = doc.description;
+            description.classList.add("suggestion__description");
+            a.appendChild(description);
+
+            suggestions.appendChild(entry);
+
+            if(suggestions.childElementCount == maxResult) break;
+        }
+    }
+    }());
+</script></body></html>
