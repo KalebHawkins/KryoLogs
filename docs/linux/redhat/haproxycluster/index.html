@@ -7,6 +7,7 @@ dnf install -y keepalived haproxy Configure Keepalived linkConfigure firewall ru
 firewall-cmd --add-rich-rule=&#39;rule protocol value="vrrp" accept&#39; --permanent firewall-cmd --reload Configure keepalived.
 vi /etc/keepalived/keepalived.conf global_defs { notification_email { admin@example.com } notification_email_from noreply@example.com smtp_server 127.0.0.1 smtp_connect_timeout 60 } vrrp_script chk_haproxy { script "killall -0 haproxy" # check the haproxy process interval 2 # every 2 seconds weight 2 # add 2 points if OK } vrrp_instance VI_1 { interface eth0 # interface to monitor state MASTER # MASTER on haproxy, BACKUP on haproxy2 virtual_router_id 51 priority 101 # 101 on haproxy, 100 on haproxy2 authentication { auth_type PASS auth_pass {{ auth_pass }} } virtual_ipaddress { 192.'><script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script><script type=text/javascript src=https://kalebhawkins.github.io/KryoLogs/docs/js/flexsearch.bundle.min.249548594cb6843f3060a3cdd3043799676c59ce8db83358a3fc2e4d20598d05dfa6ce4994805d2835cb33b54dc9b9e7.js integrity=sha384-JJVIWUy2hD8wYKPN0wQ3mWdsWc6NuDNYo/wuTSBZjQXfps5JlIBdKDXLM7VNybnn crossorigin=anonymous></script><link rel=stylesheet href=/KryoLogs/docs/scss/style.min.31963321d5565b1e541ae2d37596f1f564473d3c25f8daa0462d762d25fdc50f171101df34a9f990a740997947dc3172.css integrity=sha384-MZYzIdVWWx5UGuLTdZbx9WRHPTwl+NqgRi12LSX9xQ8XEQHfNKn5kKdAmXlH3DFy crossorigin=anonymous></head><body><div class=content><div class="page-wrapper toggled"><nav id=sidebar class=sidebar-wrapper><div class=sidebar-brand><a href=/KryoLogs/ aria-label=HomePage alt=HomePage><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><path d="m143 39.5c-18 0-18 18-18 18s0-18-18-18H22c-2.76.0-5 2.24-5 5v143c0 2.76 2.24 5 5 5h76c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h76c2.76.0 5-2.24 5-5V44.5c0-2.76-2.24-5-5-5h-85zM206 163c0 1.38-1.12 2.5-2.5 2.5H143c-18 0-18 18-18 18s0-18-18-18H46.5c-1.38.0-2.5-1.12-2.5-2.5V69c0-1.38 1.12-2.5 2.5-2.5H98c7.2.0 8.64 11.52 8.93 16.13.07 1.05.95 1.87 2 1.87h32.14c1.06.0 1.94-.82 2-1.87.29-4.61 1.73-16.13 8.93-16.13h51.5c1.38.0 2.5 1.12 2.5 2.5v94z" style="fill:#06f"/></svg></a></div><div class=sidebar-content style="height:calc(100% - 131px)"><ul class=sidebar-menu><li class="sidebar-dropdown no-icon"><button class=btn>
 AWS</button><div class=sidebar-submenu><ul><li class="sidebar-dropdown nested no-icon"><button class=btn>
+Troubleshooting</button><div class=sidebar-submenu><ul><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/aws/troubleshooting/aws-cli-ssl-verify-failed/>AWS CLI SSL Verify Failed</a></li></ul></div></li><li class="sidebar-dropdown nested no-icon"><button class=btn>
 CDK</button><div class=sidebar-submenu><ul><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/aws/cdk/getting-started/>Getting Started with AWS CDK</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/aws/cdk/aws-cdk-first-app-go/>Building Your First CDK Application</a></li></ul></div></li></ul></div></li><li class="sidebar-dropdown no-icon"><button class=btn>
 Tools</button><div class=sidebar-submenu><ul><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/tools/vcsim/>VCSim</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/tools/powercli/>PowerCLI</a></li><li class=no-icon><a class=sidebar-nested-link href=https://kalebhawkins.github.io/KryoLogs/docs/tools/minikube/>Minikube</a></li></ul></div></li><li class="sidebar-dropdown no-icon current active"><button class=btn>
 Linux</button><div class="sidebar-submenu d-block"><ul><li class="sidebar-dropdown nested no-icon"><button class=btn>
@@ -316,6 +317,20 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -343,24 +358,42 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
     index.add(
             {
                 id:  2 ,
-                href: "\/KryoLogs\/docs\/aws\/cdk\/",
-                title: "CDK",
-                description: "Documentation on using the AWS CDK",
-                content: ""
+                href: "\/KryoLogs\/docs\/aws\/troubleshooting\/aws-cli-ssl-verify-failed\/",
+                title: "AWS CLI SSL Verify Failed",
+                description: "Freakin certs man...",
+                content: "Problem linkExecuting a command like aws sts get-caller-identity returns a message similar to the one below.\nSSL validation failed for https://sts.us-east-1.amazonaws.com/ [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1006) Root Cause linkYou might be going through a proxy server. To view more information on the cert chain and the error message you can use the openssl s_client to peak into what is going on.\nopenssl s_client -connect sts.us-east-1.amazonaws.com:443 -showcerts Resolution linkYou will need to get the RootCA cert and add it to the AWS CLI’s configuration. Once you have your cert you may need to convert it into a pem format.\nopenssl x509 -inform DER -in certificate.cer -out certificate.pem You can now set the RootCA as your ca bundle. This can be done using the config file, --ca-bundle command line arg, or the AWS_CA_BUNDLE environment variable. See below examples for each of these.\nUsing the config file. link vi ~/.aws/config ca_bundle = \"/path/to/cabundle\" Using Command Line Argument linkThis will have to be appended to every command.\naws sts get-caller-identity --ca-bundle \"/path/to/cabundle\" Using Environment Variable linkThis has to be set every session.\nset AWS_CA_BUNDLE=\"/path/to/cabundle\" "
             }
         );
     index.add(
             {
                 id:  3 ,
-                href: "\/KryoLogs\/docs\/aws\/",
-                title: "AWS",
-                description: "Collection of documents and notes related to AWS",
+                href: "\/KryoLogs\/docs\/aws\/troubleshooting\/",
+                title: "Troubleshooting",
+                description: "A collection of troubleshooting documents.",
                 content: ""
             }
         );
     index.add(
             {
                 id:  4 ,
+                href: "\/KryoLogs\/docs\/aws\/cdk\/",
+                title: "CDK",
+                description: "Documentation about using the AWS CDK.",
+                content: ""
+            }
+        );
+    index.add(
+            {
+                id:  5 ,
+                href: "\/KryoLogs\/docs\/aws\/",
+                title: "AWS",
+                description: "Collection of documents and notes related to AWS.",
+                content: ""
+            }
+        );
+    index.add(
+            {
+                id:  6 ,
                 href: "\/KryoLogs\/docs\/tools\/vcsim\/",
                 title: "VCSim",
                 description: "Overview linkThis package implements a vSphere Web Services (SOAP) SDK endpoint intended for testing consumers of the API. While the mock framework is written in the Go language, it can be used by any language that can talk to the vSphere API.\nSee their github for more info.\nUsage linkTo run vcsim using docker run the following:\ndocker run -p 8989:8989 vmware/vcsim:latest To test functionality of the container you can run the following command.",
@@ -369,7 +402,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  5 ,
+                id:  7 ,
                 href: "\/KryoLogs\/docs\/tools\/powercli\/",
                 title: "PowerCLI",
                 description: "Overview linkVmware PowerCLI is a Powershell module used interact with vCenter amd vSphere APIs. This allows for simple automation of mundane, redundant tasks, like inventorying servers. Installation linkTo install PowerCLI open up a powershell window and run the following command. Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber Using PowerCLI linkGetting connected to your cluster can be performed with one command. Connect-ViServer -Credentials $(Get-Credentials) -Force Get a list of your clusters, hosts, and vms.",
@@ -378,7 +411,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  6 ,
+                id:  8 ,
                 href: "\/KryoLogs\/docs\/tools\/minikube\/",
                 title: "Minikube",
                 description: "Overview linkMinikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes. All you need is Docker (or similarly compatible) container or a Virtual Machine environment, and Kubernetes is a single command away: minikube start. Installation link curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 sudo install minikube-linux-amd64 /usr/local/bin/minikube Uninstallation link sudo rm /usr/local/bin/minikube Customize Cluster linkGet configurable items using: minikube config --help To set configuration properties: minikube config set To get current configuration:",
@@ -387,7 +420,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  7 ,
+                id:  9 ,
                 href: "\/KryoLogs\/docs\/tools\/",
                 title: "Tools",
                 description: "A collection of documentation and notes for various tools.",
@@ -396,7 +429,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  8 ,
+                id:  10 ,
                 href: "\/KryoLogs\/docs\/linux\/openshift\/vsphere-storageclasses\/",
                 title: "VSphere StorageClasses",
                 description: "In this post we are going to look at two different things. First, we will look at modifying the default datastore for our vsphere storage class. Second, we will look at creating storage classes that specify the datastore.\nThe Default Datastore link This change will trigger the nodes to reboot. Always make sure you are in an open maintenance window or that your applications are designed to work through pods migrating from node to node for less impact.",
@@ -405,7 +438,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  9 ,
+                id:  11 ,
                 href: "\/KryoLogs\/docs\/linux\/openshift\/ownership-transfer\/",
                 title: "Ownership Transfer",
                 description: "Overview linkThere are two steps to transfer ownership to a new user or organization.\nInitiate the transfer in Openshift Cluster Manager. Change the cluster pull secret to the new owner’s pull secret from CLI, The second step must take place within 5 days of the transfer initiation of cluster transfer from the Openshift Cluster Manager.\nTransferring Ownership link Login to the Openshift Cluster Manager as the current owner. Select the cluster you want to transfer from the Clusters list.",
@@ -414,7 +447,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  10 ,
+                id:  12 ,
                 href: "\/KryoLogs\/docs\/linux\/openshift\/machinesets\/",
                 title: "Machinesets",
                 description: "In this document we are going to review the process of modifying a machineset to increase resources, for this example we will be increasing memory.\nModify The Machineset linkIn the first step we modify the machine set we want to modify. First we decide which machineset we want to modify we can get the machinesets using the following.\noc get machineset -n openshift-machine-api Now we want to modify our machineset’s memory.",
@@ -423,7 +456,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  11 ,
+                id:  13 ,
                 href: "\/KryoLogs\/docs\/linux\/openshift\/authentication-operator-degraded\/",
                 title: "Authentication Operator Degraded",
                 description: "Issue Summary linkWhen performing an oc get co the authentication cluster operator is reporting a degraded state with the following message.\nOAuthServerRouteEndpointAccessibleControllerAvailable: Get \"https://oauth-openshift.apps.zone.domain.com/healthz\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) Root Cause linkThis can be a result of many different things, network issues, domain name resolution issues, etc. In my case the authentication pods and authentication-operator pod running in the cluster were failing to reconciliate due to some node modifications.",
@@ -432,7 +465,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  12 ,
+                id:  14 ,
                 href: "\/KryoLogs\/docs\/linux\/openshift\/",
                 title: "Openshift",
                 description: "A collection of documentation and notes related to Openshift.",
@@ -441,7 +474,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  13 ,
+                id:  15 ,
                 href: "\/KryoLogs\/docs\/linux\/ubuntu\/",
                 title: "Ubuntu",
                 description: "A collection of Ubuntu Linux related documentation and notes.",
@@ -450,7 +483,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  14 ,
+                id:  16 ,
                 href: "\/KryoLogs\/docs\/linux\/redhat\/vmware-template\/",
                 title: "Vmware Template",
                 description: "Prerequisites link Access to Red Hat’s access portal to download the Red Hat ISO. An active Red Hat Enterprise Linux subscription. Create the Virtual Machine linkSign into vCenter.\nRight-click the cluster you want to create the virtual machine on.\nSelect New Virtual Machine.\nSet the name and select a folder to place the template in.\nSelect the compute resource to place the template on.\nSelect the datastore to place the template on.",
@@ -459,7 +492,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  15 ,
+                id:  17 ,
                 href: "\/KryoLogs\/docs\/linux\/",
                 title: "Linux",
                 description: "A collection of Linux related documentation and notes.",
@@ -468,7 +501,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  16 ,
+                id:  18 ,
                 href: "\/KryoLogs\/docs\/linux\/redhat\/",
                 title: "Redhat",
                 description: "A collection of Red Hat Linux related documentation and notes.",
@@ -477,7 +510,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  17 ,
+                id:  19 ,
                 href: "\/KryoLogs\/docs\/linux\/redhat\/haproxycluster\/",
                 title: "Setting Up HAProxy Clusters",
                 description: "Install Required Packages linkInstall haproxy and keepalived packages.\ndnf install -y keepalived haproxy Configure Keepalived linkConfigure firewall rules for keepalived VRRP protocol.\nfirewall-cmd --add-rich-rule='rule protocol value=\"vrrp\" accept' --permanent firewall-cmd --reload Configure keepalived.\nvi /etc/keepalived/keepalived.conf global_defs { notification_email { admin@example.com } notification_email_from noreply@example.com smtp_server 127.0.0.1 smtp_connect_timeout 60 } vrrp_script chk_haproxy { script \"killall -0 haproxy\" # check the haproxy process interval 2 # every 2 seconds weight 2 # add 2 points if OK } vrrp_instance VI_1 { interface eth0 # interface to monitor state MASTER # MASTER on haproxy, BACKUP on haproxy2 virtual_router_id 51 priority 101 # 101 on haproxy, 100 on haproxy2 authentication { auth_type PASS auth_pass {{ auth_pass }} } virtual_ipaddress { 192.",
@@ -486,7 +519,7 @@ Table of Contents</button><nav id=toc-mobile><ul class=dropdown-menu><li><a href
         );
     index.add(
             {
-                id:  18 ,
+                id:  20 ,
                 href: "\/KryoLogs\/docs\/",
                 title: "Docs",
                 description: "",
