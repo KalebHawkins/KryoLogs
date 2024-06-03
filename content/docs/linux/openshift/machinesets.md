@@ -9,7 +9,7 @@ draft: false
 toc: true
 ---
 
-In this document we are going to review the process of modifing a machineset to increase resources, for this example we will be increasing memory.
+In this document we are going to review the process of modifying a machineset to increase resources, for this example we will be increasing memory.
 
 ## Modify The Machineset
 
@@ -117,7 +117,7 @@ oc scale --replicas=2 machineset <machineset> -n openshift-machine-api
 This will take several minutes once the node is in a ready state we must wait for additional tasks to complete.
 
 1. Node must be in a ready state.
-2. Verifiy all cluster operators are finished progressing. 
+2. Verify all cluster operators are finished progressing. 
 3. Etcd pods must start up.
 4. New etcd peer must join the cluster.
 5. Check the status the same way we did in the first step.

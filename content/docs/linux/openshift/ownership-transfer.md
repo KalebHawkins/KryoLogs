@@ -18,7 +18,7 @@ There are two steps to transfer ownership to a new user or organization.
 
 > The second step must take place within 5 days of the transfer initiation of cluster transfer from the Openshift Cluster Manager.
 
-## Transfering Ownership
+## Transferring Ownership
 
 1. Login to the [Openshift Cluster Manager](https://console.redhat.com/openshift) as the current owner.
 2. Select the cluster you want to transfer from the **Clusters** list.

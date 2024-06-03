@@ -9,11 +9,11 @@ draft: false
 toc: true
 ---
 
-In this post we are going to look at two different things. First, we will look at modifing the default datastore for our vsphere storage class. Second, we will look at creating storage classes that specify the datastore. 
+In this post we are going to look at two different things. First, we will look at modifying the default datastore for our vsphere storage class. Second, we will look at creating storage classes that specify the datastore. 
 
 ## The Default Datastore
 
-> This change will trigger the nodes to reboot. Always make sure you are in an open maintenaince window or that your applications are designed to work through pods migrating from node to node for less impact.
+> This change will trigger the nodes to reboot. Always make sure you are in an open maintenance window or that your applications are designed to work through pods migrating from node to node for less impact.
 
 The default datastore is located in a configmap. This configmap is called `cloud-provider-config`. This configmap can be found in the  `openshift-config` namespace. We can view it using the following command.
 
