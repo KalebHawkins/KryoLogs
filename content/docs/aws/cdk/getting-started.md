@@ -38,7 +38,7 @@ On Windows systems you can do the following from Powershell.
 
 ```powershell
 $NodeVersion = "20.14.0"
-Invoke-WebRequest https://nodejs.org/dist/v20.14.0/node-v$NodeVersion-x64.msi -OutFile nodev$NodeVersion-x64.js
+Invoke-WebRequest https://nodejs.org/dist/v20.14.0/node-v$NodeVersion-x64.msi -OutFile nodev$NodeVersion-x64.msi
 msiexec /qn /l* node-log.txt /i node-v$NodeVersion-x64.msi
 ```
 
