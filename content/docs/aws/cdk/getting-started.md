@@ -32,6 +32,22 @@ All AWS CDK developers, regardless of preferred language, need Node.js 14.15.0 o
 - [ ] [Boot Strap Environment.](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_bootstrap)
 - [ ] [Optional Setup.](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_tools)
 
+## Install NodeJS.js
+
+On Windows systems you can do the following from Powershell. 
+
+```powershell
+$NodeVersion = "20.14.0"
+Invoke-WebRequest https://nodejs.org/dist/v20.14.0/node-v$NodeVersion-x64.msi -OutFile nodev$NodeVersion-x64.js
+msiexec /qn /l* node-log.txt /i node-v$NodeVersion-x64.msi
+```
+
+Give it a few seconds and then verify your installation. You may need to close your Powershell window and reopen it for this to work.
+
+```shell
+npm --version
+```
+
 ## Setup an Account to Use
 
 - [ ] Log in to an existing administrator account or your AWS root user account.
