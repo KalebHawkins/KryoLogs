@@ -18,4 +18,6 @@ title = "KryoLogs"
     [module.hugoVersion]
         extended = true
 
+[markup.goldmark.renderer]
+    unsafe = true
 # Reference https://lotusdocs.dev/docs/reference/configuration/
