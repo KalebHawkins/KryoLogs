@@ -1,5 +1,5 @@
 ---
-weight: 999
+weight: 100
 title: "CDK"
 description: "Documentation about using the AWS CDK."
 icon: "article"

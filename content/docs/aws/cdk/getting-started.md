@@ -118,6 +118,8 @@ aws sts get-caller-identity --profile <profileName>
 aws configure get region --profile <profileName>
 ```
 
+{{< alert context="warning" text="If you have issues with SSL Error's when trying to `aws sts get-caller-identity`, then [this page](../troubleshooting/aws-cli-ssl-verify-failed.md) may help." />}}
+
 Bootstrap the environment.
 
 ```shell
