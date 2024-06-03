@@ -1,15 +1,13 @@
 ---
 weight: 100
-title: "AWS CDK"
-description: ""
+title: "Getting Started with AWS CDK"
+description: "A very crude setup tutorial for getting started with the CDK."
 icon: "article"
 date: "2024-05-31T08:41:52-05:00"
 lastmod: "2024-05-31T08:41:52-05:00"
 draft: false
 toc: true
 ---
-
-# Getting Started
 
 ## What is the CDK
 
