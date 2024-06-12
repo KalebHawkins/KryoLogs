@@ -9,6 +9,8 @@ draft: false
 toc: true
 ---
 
+[Greengrass Documentation](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)
+
 ## Provisioning
 
 Ensure that the BIOS, NIC, and GPU have the latest firmware installed. 
