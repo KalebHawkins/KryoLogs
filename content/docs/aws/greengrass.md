@@ -18,7 +18,7 @@ Ensure that the BIOS, NIC, and GPU have the latest firmware installed.
 Disable any power saving features in the BIOS including hibernation/sleep. 
 Also depending on the GPU/CPU different combinations of drivers, Cuda, cudnn and tensorrt needs to be installed. Below is an example for a g4dn ec2 instance.
 
-## Update Linux Librarys and Install Dependencies
+## Update Linux Libraries and Install Dependencies
 
 ```shell
 sudo dnf update -y
