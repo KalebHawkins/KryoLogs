@@ -5,7 +5,7 @@ description: "Installing AWS Green Grass on Red Hat Enterprise Linux 9"
 icon: "article"
 date: "2024-06-12T14:47:56-05:00"
 lastmod: "2024-06-12T14:47:56-05:00"
-draft: false
+draft: true
 toc: true
 ---
 
@@ -120,7 +120,7 @@ java -version
 
 ## Install Greengrass
 
-Use the `QIS` tool to create the curl command to install Greengrass.
+<!-- FILL THIS IN -->
 
 ## Install Aauthbind
 
