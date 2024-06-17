@@ -22,7 +22,8 @@ Also depending on the GPU/CPU different combinations of drivers, Cuda, cudnn and
 
 ```shell
 sudo dnf update -y
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+sudo dnf groupinstall "Development Tools" -y 
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
 sudo dnf install wget openssl-devel libffi-devel bzip2-devel sqlite-devel python3.9 python3-pip kernel-headers -y
 sudo reboot
 ```
@@ -32,16 +33,24 @@ sudo reboot
 * [NVIDIA Drivers](https://www.nvidia.com/en-us/drivers/unix/)
 
 ```shell
+# From another machine with the aws cli client download the NVIDIA Drivers.
 aws s3 cp --recursive s3://ec2-linux-nvidia-drivers/latest/ .
+
+# Move the NVIDIA drivers to the EC2 instance.
 # Replace `{{Version}}` with your downloaded driver version.
-sudo CC=/usr/bin/gcc10-cc ./NVIDIA-Linux-x86_64-{{Version}}-grid-aws.run  --kernel-source-path /usr/src/kernels/5.10.165-143.735.amzn2.x86_64/ 
+scp -i <privKey> .\NVIDIA-Linux-x86_64-550.90.07-grid-aws.run <user>@<host>:/tmp/NVIDIA-Linux-x86_64-{{Version}}-grid-aws.run
+
+# Make driver executable
+chmod +x /tmp/NVIDIA-Linux-x86_64-{{Version}}-grid-aws.run
+
+# Replace `{{Version}}` with your downloaded driver version and kernel version respectively.
+sudo CC=/usr/bin/gcc ./NVIDIA-Linux-x86_64-{{Version}}-grid-aws.run --kernel-source-path /usr/src/kernels/{{Version}}/ 
 # Go through the prompts 
 sudo reboot
 ```
 
-## Verify installation
-
 ```shell
+# Verify installation
 nvidia-smi
 ```
 
@@ -54,7 +63,7 @@ wget https://developer.download.nvidia.com/compute/cuda/12.5.0/local_installers/
 
 sudo rpm -i cuda-repo-rhel9-12-5-local-12.5.0_555.42.02-1.x86_64.rpm
 sudo dnf clean all
-sudo dnf -y install cuda-toolkit-12-5
+sudo dnf install cuda-toolkit-12-5 -y
 ```
 
 ## Install Cudnn
@@ -62,10 +71,9 @@ sudo dnf -y install cuda-toolkit-12-5
 * [Cudnn Documentation](https://developer.nvidia.com/cudnn)
 
 ```shell
-sudo curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.12.4.repo -o /etc/yum.repos.d/cuda-rhel9.repo
-
-sudo rpm -i cudnn-local-repo-rhel9-9.2.0-1.0-1.x86_64.rpm
+sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.repo
 sudo dnf clean all
+
 sudo dnf -y install cudnn
 ```
 
@@ -83,7 +91,7 @@ sudo dnf install tensorrt -y
 ## Install Greengrass Dependencies
 
 ```shell
-sudo pip3 install dlr==1.10.0 grpcio==1.43.0 grpcio-tools==1.43.0 numpy==1.22.2 protobuf==3.19.4 scikit-learn==1.0.2 scipy==1.7.3 Pillow==9.0.1 aws-embedded-metrics==1.0.7 awsiotsdk==1.10.0 warlock==1.3.3 jsonschema==3.2.0 torch==1.12.1+cu102
+sudo pip3 install dlr==1.10.0 grpcio==1.43.0 grpcio-tools==1.43.0 numpy==1.22.2 protobuf==3.19.4 scikit-learn==1.0.2 scipy==1.7.3 Pillow==9.0.1 aws-embedded-metrics==1.0.7 awsiotsdk==1.10.0 warlock==1.3.3 jsonschema==3.2.0
 
 sudo pip3 install torchvision==0.13.1+cu102 --extra-index-url https://download.pytorch.org/whl/cu102
 
