@@ -45,7 +45,7 @@ msiexec /qn /l* node-log.txt /i node-v$NodeVersion-x64.msi
 Give it a few seconds and then verify your installation. You may need to close your Powershell window and reopen it for this to work.
 
 ```shell
-npm --version
+node --version
 ```
 
 ## Setup an Account to Use
