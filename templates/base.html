@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ config.extra.blog_name }}</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
+    integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" defer></script>
+
+  <script src="{{ get_url(path='js/index.js') }}" defer></script>
+  <script src="{{ get_url(path='js/prompt.js') }}" defer></script>
+  <script src="{{ get_url(path='js/keyboard.js') }}" defer></script>
+  <script src="{{ get_url(path='js/tab.js') }}" defer></script>
+  <script src="{{ get_url(path='js/commands.js') }}" defer></script>
+  <script src="{{ get_url(path='js/config.js') }}" defer></script>
+
+  {%- if config.extra.config_js -%}
+    {# Allow either "js/foo.js" or "/js/foo.js" #}
+    {%- set cfg_js = config.extra.config_js | trim_start_matches(pat="/") -%}
+    <script src="{{ get_url(path=cfg_js) }}" defer></script>
+  {%- endif -%}
+
+  <link rel="stylesheet" href="{{ get_url(path='css/base.css') }}">
+
+  {%- if config.extra.custom_css -%}
+    {# Allow either "css/custom.css" or "/css/custom.css" or even "assets/custom.css" #}
+    {%- set custom_css = config.extra.custom_css | trim_start_matches(pat="/") -%}
+    <link rel="stylesheet" href="{{ get_url(path=custom_css) }}">
+  {%- endif -%}
+
+  {%- if page -%}
+  <link rel="stylesheet" href="{{ get_url(path='css/page.css') }}">
+  {%- endif -%}
+</head>
+
+{%- if config.extra.background_image -%}
+  {%- set bg = config.extra.background_image | trim_start_matches(pat="/") -%}
+  <body onkeydown="exec(event)" style="background-image: url('{{ get_url(path=bg) }}');">
+{%- else -%}
+  <body onkeydown="exec(event)" style="background-image: url('{{ get_url(path='assets/background.jpg') }}');">
+{%- endif -%}
+
+    <main>
+      <div class="files" id="files" tabindex="0">
+        {%- include "components/files.html" -%}
+      </div>
+      <div class="viewer {% if page -%}page{%- endif -%}" id="viewer" tabindex="0">
+        <div class="tab">
+          {%- include "components/tab.html" -%}
+        </div>
+        <div class="content" id="content">
+          {%- block content -%}{% endblock %}
+        </div>
+      </div>
+      <div class="prompt" id="terminal">
+        {%- include "components/prompt.html" -%}
+      </div>
+    </main>
+  </body>
+
+</html>
