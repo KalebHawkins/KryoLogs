@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://kalebhawkins.github.io/KryoLogs/sitemap.xml

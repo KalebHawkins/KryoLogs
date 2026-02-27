@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="https://kalebhawkins.github.io/KryoLogs/favicon.ico">
+  <title>KryoLogs</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
+    integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" defer></script>
+
+  <script src="https://kalebhawkins.github.io/KryoLogs/js/index.js" defer></script>
+  <script src="https://kalebhawkins.github.io/KryoLogs/js/prompt.js" defer></script>
+  <script src="https://kalebhawkins.github.io/KryoLogs/js/keyboard.js" defer></script>
+  <script src="https://kalebhawkins.github.io/KryoLogs/js/tab.js" defer></script>
+  <script src="https://kalebhawkins.github.io/KryoLogs/js/commands.js" defer></script>
+  <script src="https://kalebhawkins.github.io/KryoLogs/js/config.js" defer></script><link rel="stylesheet" href="https://kalebhawkins.github.io/KryoLogs/css/base.css"></head><body onkeydown="exec(event)" style="background-image: url('https://kalebhawkins.github.io/KryoLogs/assets/background.jpg');"><main>
+      <div class="files" id="files" tabindex="0">
+<ul>
+
+  <li class="file">
+    <span><a href='https://kalebhawkins.github.io/KryoLogs/readme/'
+      tabindex="-2">  README</a></span>
+  </li>
+</ul>
+</div>
+      <div class="viewer " id="viewer" tabindex="0">
+        <div class="tab">
+<div class="file-manager" onclick='document.getElementById("files").classList.toggle("open"); document.getElementById("content").classList.toggle("close")'> </div>
+<ul id="tabs">
+</ul>
+
+
+</div>
+        <div class="content" id="content"><h1 id="readme">README</h1>
+<h2 id="table-of-content">Table of content</h2>
+<ul>
+<li><a href="https://kalebhawkins.github.io/KryoLogs/readme/#shortcuts">1. Shortcuts</a></li>
+<li><a href="https://kalebhawkins.github.io/KryoLogs/readme/#commands">2. Commands</a></li>
+</ul>
+<h2 id="shortcuts">Shortcuts</h2>
+<p><code>shift+h/l</code> to switch from file browser to file viewer</p>
+<p><code>j/k</code> to scroll through the file content</p>
+<p><code>j/k</code> to go through files in file browser</p>
+<p><code>enter</code> to open the currently selected file</p>
+<p><code>esc+command</code> see <a href="https://kalebhawkins.github.io/KryoLogs/readme/#Commands">## Commands</a></p>
+<p><code>shift+t/enter</code> to open the file in a new tab</p>
+<p><code>tab</code> to go to the next tab</p>
+<p><code>shift+q</code> to close the current tab</p>
+<h2 id="commands">Commands</h2>
+<p><code>:help</code> to show this page</p>
+<p><code>:q</code> exit website</p>
+<p><code>:set mouse=true|false</code> to set the mouse (true=showed, false=hidden)</p>
+
+        </div>
+      </div>
+      <div class="prompt" id="terminal"><input
+    type="text"
+    id="setter"
+    onkeydown="writeit(this, event);moveIt(this.value.length, event)"
+    onchange="writeit(this, event)"
+    onkeyup="writeit(this, event)"
+    onkeypress="writeit(this, event);"
+    >
+<label for="setter" id="writer"> </label><b class="cursor" id="cursor"></b></div>
+    </main>
+  </body>
+
+</html>
