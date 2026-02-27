@@ -27,7 +27,7 @@ jobs:
           tool: zola
 
       - name: Build site
-        run: zola build --config zola.toml --base-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+        run: zola build --base-url "https://kalebhawkins.github.io/KryoLogs"
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4

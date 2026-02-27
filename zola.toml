@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://KalebHawkins.github.io/KryoLogs"
+base_url = "https://kalebhawkins.github.io/KryoLogs"
 theme = "neovim-theme"
 
 # Whether to automatically compile all Sass files in the sass directory
